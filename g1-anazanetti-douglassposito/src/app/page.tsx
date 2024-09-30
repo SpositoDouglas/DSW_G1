@@ -18,3 +18,23 @@ export default function Home() {
     </div>
   );
 }
+
+function criarFuncionario():void{
+  var nome = document.getElementById("nome");
+  var tempoDeEmpresa = document.getElementById("tpEmpresa");
+  var cargo = document.getElementById("cargo");
+  var salario = document.getElementById("salario");
+  if(nome && tempoDeEmpresa&&salario!= null)
+    if (cargo.value ="Funcionario"){
+      var novoFuncionario = new Funcionario(nome.value,Number(tempoDeEmpresa.value), cargo.value, Number(salario.value));
+      novoFuncionario.calculaBonus();
+      console.log(novoFuncionario);
+    }else if(cargo.value = "Gerente"){
+      var novoGerente=  new Gerente(nome.value, Number(tempoDeEmpresa.value), cargo.value, Number(salario.value));
+      novoGerente.calculaBonus();
+    }else if(cargo.value ="Diretor"){
+      var novoDiretor = new Diretor(nome.value, Number(tempoDeEmpresa.value), cargo.value, Number(salario.value));
+      novoDiretor.calculaBonus();
+    }
+}
+
