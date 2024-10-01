@@ -10,23 +10,23 @@ export default function Home() {
   const [tempoDeEmpresa, setTempoDeEmpresa] = useState('');
   const [cargo, setCargo] = useState('');
   const [salario, setSalario] = useState('');
+  const [funcionarios, setFuncionarios] = useState([
+    { nome: "Ana", tempoDeEmpresa: 5, cargo: "Funcionario", salario: 5000 },
+    { nome: "Beto", tempoDeEmpresa: 5, cargo: "Funcionario", salario: 5000 }
+  ]);
 
   function criarFuncionario(): void {
     if (nome && tempoDeEmpresa && salario) {
+      let novoFuncionario;
       if (cargo === "Funcionario") {
-        var novoFuncionario = new Funcionario(nome, Number(tempoDeEmpresa), cargo, Number(salario));
-        novoFuncionario.calculaBonus();
-        console.log(novoFuncionario);
-
+        novoFuncionario = new Funcionario(nome, Number(tempoDeEmpresa), cargo, Number(salario));
       } else if (cargo === "Gerente") {
-        var novoGerente = new Gerente(nome, Number(tempoDeEmpresa), cargo, Number(salario));
-        novoGerente.calculaBonus();
-        console.log(novoGerente);
-
+        novoFuncionario = new Gerente(nome, Number(tempoDeEmpresa), cargo, Number(salario));
       } else if (cargo === "Diretor") {
-        var novoDiretor = new Diretor(nome, Number(tempoDeEmpresa), cargo, Number(salario));
-        novoDiretor.calculaBonus();
-        console.log(novoDiretor);
+        novoFuncionario = new Diretor(nome, Number(tempoDeEmpresa), cargo, Number(salario));
+      }
+      if (novoFuncionario) {
+        setFuncionarios([...funcionarios, novoFuncionario]);
       }
     } else {
       console.log("Preencha todos os campos corretamente.");
@@ -65,8 +65,16 @@ export default function Home() {
         /><br />
 
         <button onClick={criarFuncionario}>Adicionar</button>
+
+        {/* Renderizando a lista de funcionários */}
+        <ul>
+          {funcionarios.map((funcionario, index) => (
+            <li key={index}>
+              {funcionario.nome} - {funcionario.tempoDeEmpresa} anos - {funcionario.cargo} - R${funcionario.salario}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 }
-
