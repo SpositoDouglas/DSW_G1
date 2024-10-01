@@ -1,4 +1,4 @@
-class Funcionario{
+export class Funcionario{
             nome: string;
             tempoDeEmpresa: number;
             cargo: string;

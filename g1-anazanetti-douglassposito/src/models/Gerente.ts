@@ -1,2 +1,3 @@
-class Gerente extends Funcionario{
+import { Funcionario } from './Funcionario';
+export class Gerente extends Funcionario{
 }

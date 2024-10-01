@@ -1,40 +1,72 @@
 "use client"; 
 import { useState } from 'react';
-import local from 'next/font/local';
+import { Funcionario } from '../models/Funcionario';
+import { Gerente } from '../models/Gerente';
+import { Diretor } from '../models/Diretor';
+
 
 export default function Home() {
   const [nome, setNome] = useState('');
+  const [tempoDeEmpresa, setTempoDeEmpresa] = useState('');
   const [cargo, setCargo] = useState('');
   const [salario, setSalario] = useState('');
+
+  function criarFuncionario(): void {
+    if (nome && tempoDeEmpresa && salario) {
+      if (cargo === "Funcionario") {
+        var novoFuncionario = new Funcionario(nome, Number(tempoDeEmpresa), cargo, Number(salario));
+        novoFuncionario.calculaBonus();
+        console.log(novoFuncionario);
+
+      } else if (cargo === "Gerente") {
+        var novoGerente = new Gerente(nome, Number(tempoDeEmpresa), cargo, Number(salario));
+        novoGerente.calculaBonus();
+        console.log(novoGerente);
+
+      } else if (cargo === "Diretor") {
+        var novoDiretor = new Diretor(nome, Number(tempoDeEmpresa), cargo, Number(salario));
+        novoDiretor.calculaBonus();
+        console.log(novoDiretor);
+      }
+    } else {
+      console.log("Preencha todos os campos corretamente.");
+    }
+  }
+
   return (
-    <div id = "Cadastro">
+    <div id="Cadastro">
       <div id="formConteiner">
-        <input type="text" placeholder ="Nome" id="Nome"></input><br></br>
-        <input type="text" placeholder ="Tempo de Empresa" id="tpEmpresa"></input><br></br>
-        <input type="text" placeholder ="Cargo" id="cargo"></input><br></br>
-        <input type="text" placeholder ="Salario" id="salario"></input><br></br>
-        <button>Adicionar</button>
+        <input
+          type="text"
+          placeholder="Nome"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        /><br />
+
+        <input
+          type="text"
+          placeholder="Tempo de Empresa"
+          value={tempoDeEmpresa}
+          onChange={(e) => setTempoDeEmpresa(e.target.value)}
+        /><br />
+
+        <input
+          type="text"
+          placeholder="Cargo"
+          value={cargo}
+          onChange={(e) => setCargo(e.target.value)}
+        /><br />
+
+        <input
+          type="text"
+          placeholder="Salario"
+          value={salario}
+          onChange={(e) => setSalario(e.target.value)}
+        /><br />
+
+        <button onClick={criarFuncionario}>Adicionar</button>
       </div>
     </div>
   );
-}
-
-function criarFuncionario():void{
-  var nome = document.getElementById("nome");
-  var tempoDeEmpresa = document.getElementById("tpEmpresa");
-  var cargo = document.getElementById("cargo");
-  var salario = document.getElementById("salario");
-  if(nome && tempoDeEmpresa&&salario!= null)
-    if (cargo.value ="Funcionario"){
-      var novoFuncionario = new Funcionario(nome.value,Number(tempoDeEmpresa.value), cargo.value, Number(salario.value));
-      novoFuncionario.calculaBonus();
-      console.log(novoFuncionario);
-    }else if(cargo.value = "Gerente"){
-      var novoGerente=  new Gerente(nome.value, Number(tempoDeEmpresa.value), cargo.value, Number(salario.value));
-      novoGerente.calculaBonus();
-    }else if(cargo.value ="Diretor"){
-      var novoDiretor = new Diretor(nome.value, Number(tempoDeEmpresa.value), cargo.value, Number(salario.value));
-      novoDiretor.calculaBonus();
-    }
 }
 
